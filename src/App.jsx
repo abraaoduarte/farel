@@ -1,14 +1,14 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import RenderRouter from "./routes";
+import { AuthProvider } from './contexts/AuthContext';
 
 
 const App = () => (
     <ConfigProvider componentSize="large">
-        <BrowserRouter>
-          <RenderRouter />
-        </BrowserRouter>
+        <AuthProvider>
+            <RenderRouter />
+        </AuthProvider>
     </ConfigProvider>
   );
 

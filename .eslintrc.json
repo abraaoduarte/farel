@@ -20,5 +20,11 @@
         "prettier"
     ],
     "rules": {
+        "react/prop-types": "off",
+        "react/jsx-props-no-spreading": ["off", {
+            "html": "ignore",
+            "custom": "ignore",
+            "explicitSpread": "ignore"
+        }]
     }
 }
