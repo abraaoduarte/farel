@@ -1,11 +1,10 @@
 
 
 import React from 'react'
-import Header from "../components/Header";
 import { Route } from "react-router-dom";
+import Header from "../components/Header";
 
-const RenderRouter = () => {
-  return (
+const RenderRouter = () => (
     <div>
       <Route exact path="/">
         <Header />
@@ -14,7 +13,6 @@ const RenderRouter = () => {
         <Header />
       </Route>
     </div>
-  )
-};
+  );
 
 export default RenderRouter;

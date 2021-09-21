@@ -4,15 +4,12 @@ import { ConfigProvider } from "antd";
 import RenderRouter from "./routes";
 
 
-const App = () => {
-
-  return (
+const App = () => (
     <ConfigProvider componentSize="large">
         <BrowserRouter>
           <RenderRouter />
         </BrowserRouter>
     </ConfigProvider>
   );
-};
 
 export default App;

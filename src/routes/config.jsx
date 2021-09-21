@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
 import { RouteProps } from 'react-router';
-import PrivateRoute from './pravateRoute';
 import { useIntl } from 'react-intl';
+import PrivateRoute from './pravateRoute';
 
 
 
