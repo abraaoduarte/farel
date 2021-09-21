@@ -16,7 +16,7 @@ const ProtectedRoutes = () => (
                 key={path}
                 exact={exact}
                 >
-                <Component />
+                    <Component />
                 </Route>
             ))}
             </Suspense>
