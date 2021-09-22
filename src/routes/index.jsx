@@ -4,7 +4,7 @@ import {Spin } from 'antd';
 import history from './history';
 import { useAuth } from '../contexts/AuthContext';
 
-import Login from '../pages/Login';
+import Login from '../pages/login';
 import Layout from '../components/Layout';
 
 
@@ -36,6 +36,7 @@ function CusomRoutes({ isPrivate, isPublic, ...rest }) {
 
 // TODO: Remover esse componente depois que algumas rotas estiverem prontas
 const Example = () => (<h1>Example</h1>)
+
 
 export default function Routes() {
   return (
