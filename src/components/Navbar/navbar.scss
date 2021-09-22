@@ -1,0 +1,26 @@
+.trigger {
+    padding: 0 24px;
+    font-size: 18px;
+    line-height: 64px;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover {
+        color: #1890ff;
+    }
+}
+
+.header-content {
+    background: #fff;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    .setting-button {
+        padding-right: 24px;
+        background-color: transparent;
+        border: none;
+        &:hover {
+            background-color: #efefef;
+            cursor: pointer;
+        }
+    }
+}

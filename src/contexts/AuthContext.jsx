@@ -51,6 +51,7 @@ function AuthProvider({ children }) {
         history.push('/login');
     }
 
+    // TODO: Passar informações do usuário para o contexto
     return (
         <AuthContext.Provider
             value={{ authenticated, handleLogin, handleLogOut, loading }}
