@@ -1,59 +1,51 @@
-import React, { lazy, Suspense } from 'react';
-import {
-  Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
-import { Spin } from 'antd';
-import ProtectedRoutes from './ProtectedRoutes ';
-import PublicRoute from './PublicRoute';
-import PrivateRoute from './PrivateRoute';
+import React from 'react';
+import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import {Spin } from 'antd';
+import history from './history';
 import { useAuth } from '../contexts/AuthContext';
-import history from './history.routes';
+
+import Login from '../pages/Login';
+import Header from '../components/Header';
+import Layout from '../components/Layout';
 
 
-const Header = lazy(() => import('../components/Header'));
-const Login = lazy(() => import('../pages/Login'));
+function CusomRoutes({ isPrivate, isPublic, ...rest }) {
+    const { loading, authenticated } = useAuth();
 
-const RenderRouter = () => {
-     const { authenticated } = useAuth();
+    if (loading) {
+        return <Spin />
+    }
 
-    return (
-        <Router history={history}>
-            <Suspense fallback={<Spin />}>
-                <Switch>
-                    <PublicRoute
-                        path="/login"
-                        isAuthenticated={authenticated}
-                    >
-                        <Login />
-                    </PublicRoute>
-                    <PublicRoute
-                        path="/register"
-                        isAuthenticated={authenticated}
-                    >
-                        <Header />
-                    </PublicRoute>
-                    <PublicRoute
-                        path="/forgot-password"
-                        isAuthenticated={authenticated}
-                    >
-                        <Header />
-                    </PublicRoute>
-                    <PrivateRoute
-                        path="/"
-                        exact
-                        isAuthenticated={authenticated}
-                    >
-                        <ProtectedRoutes />
-                    </PrivateRoute>
-                    <Route path="*">
-                        <Header />
-                    </Route>
-                </Switch>
-            </Suspense>
-        </Router>
-    );
-};
+    if (isPrivate  && !authenticated) {
+        return <Redirect to='/login' />;
+    }
 
-export default RenderRouter;
+    if (isPublic && authenticated) {
+        return <Redirect to='/dashboard' />;
+    }
+
+    if (isPrivate  && authenticated) {
+        return (
+            <Layout>
+                <Route {...rest} />
+            </Layout>
+        );
+    }
+
+    return <Route {...rest} />;
+}
+
+export default function Routes() {
+  return (
+    <>
+        <BrowserRouter history={history}>
+            <Switch>
+                <CusomRoutes isPublic component={Header} exact path='/' />
+                <CusomRoutes isPublic component={Login} exact path='/login' />
+                <CusomRoutes isPrivate component={Header} exact path='/dashboard' />
+                <CusomRoutes component={Login} />
+            </Switch>
+        </BrowserRouter>
+    </>
+  );
+}

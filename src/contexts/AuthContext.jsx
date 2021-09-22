@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import history from '../routes/history';
+
 import api from '../services/api';
-import history from '../routes/history.routes';
 
 const AuthContext = createContext();
 
@@ -10,20 +11,24 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
-            if (token) {
-            api.defaults.headers.Authorization = `Bearer ${token}`;
-            setAuthenticated(true);
-            setLoading(false);
+
+        if (token) {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+
+        setAuthenticated(true);
+        setLoading(false);
+
+        // history.push('/');
         } else {
-            setLoading(false);
-            setAuthenticated(false);
+        setLoading(false);
+        setAuthenticated(false);
         }
     }, []);
 
-    async function handleLogin(form) {
+    async function handleLogin(payload) {
         setLoading(true);
         try {
-            const { data } = await api.post('/api/v1/auth/login', form);
+            const { data } = await api.post('/api/v1/auth/login', payload);
 
             localStorage.setItem('token', JSON.stringify(data.result.token));
             localStorage.setItem('user', JSON.stringify(data.result.user));
@@ -56,11 +61,11 @@ function AuthProvider({ children }) {
 }
 
 function useAuth() {
-    const { authenticated, handleLogin, loading, handleLogOut } = useContext(
-        AuthContext
-    );
+  const { authenticated, handleLogin, loading, handleLogOut } = useContext(
+    AuthContext
+  );
 
-    return { authenticated, handleLogin, loading, handleLogOut };
+  return { authenticated, handleLogin, loading, handleLogOut };
 }
 
 export { AuthProvider, useAuth };

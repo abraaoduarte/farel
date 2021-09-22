@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox, Row, Col, Spin, message } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
-import './Login.scss'
+import './login.scss'
 import { useHistory } from "react-router-dom";
 import Logo from './logo.svg'
 import { useAuth } from '../../contexts/AuthContext';
