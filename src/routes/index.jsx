@@ -5,7 +5,6 @@ import history from './history';
 import { useAuth } from '../contexts/AuthContext';
 
 import Login from '../pages/Login';
-import Header from '../components/Header';
 import Layout from '../components/Layout';
 
 
@@ -35,14 +34,17 @@ function CusomRoutes({ isPrivate, isPublic, ...rest }) {
     return <Route {...rest} />;
 }
 
+// TODO: Remover esse componente depois que algumas rotas estiverem prontas
+const Example = () => (<h1>Example</h1>)
+
 export default function Routes() {
   return (
     <>
         <BrowserRouter history={history}>
             <Switch>
-                <CusomRoutes isPublic component={Header} exact path='/' />
+                <CusomRoutes isPublic component={Example} exact path='/' />
                 <CusomRoutes isPublic component={Login} exact path='/login' />
-                <CusomRoutes isPrivate component={Header} exact path='/dashboard' />
+                <CusomRoutes isPrivate component={Example} exact path='/dashboard' />
                 <CusomRoutes component={Login} />
             </Switch>
         </BrowserRouter>
