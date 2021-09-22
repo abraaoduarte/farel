@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Input, Button, Checkbox, Row, Col, Spin, message } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
-import './login.scss'
-import { useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useHistory } from "react-router-dom";
+
+import { Context } from '../../Context/AuthContext';
 import Logo from './logo.svg'
-import { useAuth } from '../../contexts/AuthContext';
+import './login.scss'
 
 const Login = () => {
-    const { handleLogin, loading } = useAuth();
+    const { loading, handleLogin } = useContext(Context);
     const  history = useHistory();
 
     const onLogin = async (values) => {
         try {
             await handleLogin(values)
             history.push('dashboard')
-            console.log('Success:', values);
         } catch (error) {
             message.error('Ocorreu um erro ao logar, tente mais tarde.');
             console.log('Error:', error);
@@ -83,7 +83,7 @@ const Login = () => {
                                     >
                                         <Checkbox>lembrar-me</Checkbox>
                                     </Form.Item>
-                                    <Button type="primary" htmlType="submit" className="submit-btn">
+                                    <Button disabled={loading} type="primary" htmlType="submit" className="submit-btn">
                                         Logar
                                     </Button>
                                 </Form>
