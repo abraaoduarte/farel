@@ -1,9 +1,11 @@
 import React from "react";
 import { ConfigProvider } from "antd";
 import { Helmet } from "react-helmet";
-import RenderRouter from "./routes";
-import { AuthProvider } from './contexts/AuthContext';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './Context/AuthContext';
 
+import Routes from './routes'
+import history from './routes/history'
 
 const App = () => (
     <>
@@ -12,7 +14,9 @@ const App = () => (
         </Helmet>
         <ConfigProvider componentSize="large">
             <AuthProvider>
-                <RenderRouter />
+                <BrowserRouter history={history}>
+                    <Routes />
+                </BrowserRouter>
             </AuthProvider>
         </ConfigProvider>
     </>

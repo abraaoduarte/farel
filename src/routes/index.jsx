@@ -1,29 +1,26 @@
-import React from 'react';
-import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
-import {Spin } from 'antd';
-import history from './history';
-import { useAuth } from '../contexts/AuthContext';
+import React, { useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Spin } from 'antd';
 
-import Login from '../pages/login';
+import { Context } from '../Context/AuthContext';
 import Layout from '../components/Layout';
 
+import Login from '../pages/login';
+import UserRoutes from '../pages/users/routes';
+import DashbpardRoutes from '../pages/dashboard/routes';
 
-function CusomRoutes({ isPrivate, isPublic, ...rest }) {
-    const { loading, authenticated } = useAuth();
+function CustomRoute({ isPrivate, ...rest }) {
+    const { loading, authenticated } = useContext(Context);
 
     if (loading) {
         return <Spin />
     }
 
-    if (isPrivate  && !authenticated) {
-        return <Redirect to='/login' />;
+    if (isPrivate && !authenticated) {
+        return <Redirect to="/login" />
     }
 
-    if (isPublic && authenticated) {
-        return <Redirect to='/dashboard' />;
-    }
-
-    if (isPrivate  && authenticated) {
+   if (isPrivate  && authenticated) {
         return (
             <Layout>
                 <Route {...rest} />
@@ -34,21 +31,13 @@ function CusomRoutes({ isPrivate, isPublic, ...rest }) {
     return <Route {...rest} />;
 }
 
-// TODO: Remover esse componente depois que algumas rotas estiverem prontas
-const Example = () => (<h1>Example</h1>)
-
-
 export default function Routes() {
-  return (
-    <>
-        <BrowserRouter history={history}>
-            <Switch>
-                <CusomRoutes isPublic component={Example} exact path='/' />
-                <CusomRoutes isPublic component={Login} exact path='/login' />
-                <CusomRoutes isPrivate component={Example} exact path='/dashboard' />
-                <CusomRoutes component={Login} />
-            </Switch>
-        </BrowserRouter>
-    </>
-  );
+    return (
+        <Switch>
+            <CustomRoute exact path="/login" component={Login} />
+            <CustomRoute isPrivate path="/users" component={UserRoutes} />
+            <CustomRoute isPrivate exact path="/dashboard" component={DashbpardRoutes} />
+            <Redirect to="/login" />
+        </Switch>
+    );
 }
