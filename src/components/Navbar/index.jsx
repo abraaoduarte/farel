@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Layout, Dropdown, Menu } from 'antd';
 import {
     MenuUnfoldOutlined,
@@ -6,10 +6,14 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import './navbar.scss';
+import { Context } from '../../Context/AuthContext';
 
 const { Header } = Layout;
 
-const Navbar = ({ isCollapsed = false, onCollapse }) => (
+const Navbar = ({ isCollapsed = false, onCollapse }) => {
+    const { user } = useContext(Context);
+
+    return (
     <Header className="header-content">
         {React.createElement(isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
@@ -23,12 +27,11 @@ const Navbar = ({ isCollapsed = false, onCollapse }) => (
                 </Menu>
             )}
         >
-            {/* TODO: Pegar nome do usuário do contexto */}
             <button type="button" className="setting-button" onClick={e => e.preventDefault()}>
-                Abraão Duarte <UserOutlined />
+                {user.name} <UserOutlined />
             </button>
         </Dropdown>
     </Header>
-)
+)}
 
 export default Navbar

@@ -13,12 +13,14 @@
     "@ant-design/icons": "^4.6.4",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
+    "date-fns": "^2.24.0",
     "history": "^5.0.1",
     "less": "^4.1.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.3.0",
+    "uuid": "^8.3.2",
     "vite-plugin-style-import": "^1.2.1"
   },
   "devDependencies": {
