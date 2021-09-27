@@ -15,7 +15,7 @@ export default function useAuth() {
         if (token) {
             api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
             setAuthenticated(true);
-            setUser(getUser);
+            setUser(JSON.parse(getUser));
         }
 
         setLoading(false);
@@ -23,7 +23,7 @@ export default function useAuth() {
 
     async function handleLogin(payload) {
         try {
-            const { data } = await api.post('/api/v1/auth/login', payload);
+            const { data } = await api.post('/auth/login', payload);
 
             localStorage.setItem('token', JSON.stringify(data.result.token));
             localStorage.setItem('user', JSON.stringify(data.result.user));
